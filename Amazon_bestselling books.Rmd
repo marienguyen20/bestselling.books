@@ -1,0 +1,37 @@
+---
+title: "Amazon Top 50 Bestselling Books 2009 - 2019"
+output: html_document
+---
+>#### Dataset Selection: 
+
+##### Explore the dataset on Amazon's Top 50 bestselling books from 2009 to 2019. Contains 550 books, data has been categorized into fiction and non-fiction using Goodreads. 
+
+```{r}
+df <- read.csv('bestsellers with categories.csv')
+```
+
+```{r echo = FALSE, results='hide', message=FALSE,warning=FALSE}
+library(ggplot2)
+library(kableExtra)
+library(dplyr)
+```
+
+>#### Exploratory Analysis and Data Summary:
+
+```{r}
+ggplot(data = df, aes(x = Reviews)) + geom_histogram(bins = 30, fill = "lightslateblue") + labs(title = "Number of Reviews of Bestselling Books", x = "Reviews") + theme_linedraw()
+```
+
+##### - Table summary statistics for Number of Reviews of Bestselling Books on Amazon:
+```{r echo=FALSE,results='hide'}
+summary(df$Reviews)
+```
+```{r echo=FALSE}
+summary.Reviews <- summary(df$Reviews)
+summary.table <- rbind(summary.Reviews)
+summary.table <- as.table(summary.table)
+knitr::kable(summary.table) %>%
+  kable_styling(bootstrap_options = c("striped","hover"), full_width = T, position = "center")
+```
+
+##### The median and mean of this "Number of Reviews of Bestselling Books on Amazon" are 8580   and 11953 respectively. The IQR is 87.804 (data ranges from 37 to 87841). The histogram is unimodal and right-skewed. There are some unusual value nearly 50000, 60000, 77000, and 87500. 
